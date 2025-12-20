@@ -1,0 +1,24 @@
+<meta charset="UTF-8"><script src="https://cdn.jsdelivr.net/gh/iamthe000/skip-js@v1.0.0/skip.js"></script>
+<div id="special_start"><h1>確認</h1></div>
+
+<script>
+    Skip.start({
+        title: "テスト-test",
+        charset: 'UTF-8',
+        run: async () => {
+           
+            print("<h1>開始します...</h1>");
+            
+            await sleep(1000);
+            print("1秒経過。");
+            
+            await sleep(1000);
+            print("2秒経過。データを取得中...");
+
+            $("#special_start").style.border = "2px solid #333";
+            $("#special_start").style.padding = "20px";
+            
+            print("<strong>完了しました！</strong>");
+        }
+    });
+</script>
