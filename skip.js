@@ -1,11 +1,10 @@
 /*Skip.js - 面倒な儀式をスキップして、すぐにロジックを書くためのライブラリ*/
 (function (global) {
-    global.sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
 
-    global.$ = (selector) => document.querySelector(selector);
-    global.$$ = (selector) => document.querySelectorAll(selector);
-
-    global.Skip = {
+    const Skip = {
         start: async function (config = {}) {
             const defaults = {
                 targetId: 'special_start',
@@ -51,7 +50,7 @@
 
             const appDiv = document.getElementById(settings.targetId);
             if (!appDiv) {
-                console.warn(`Skip.js: <div id="${settings.targetId}"> が見つかりません。body直下に作成します。`);
+                console.warn(`Skip.js: <div id="${settings.targetId}"> was not found. It will be created directly under the body.`);
                 const newDiv = document.createElement('div');
                 newDiv.id = settings.targetId;
                 document.body.appendChild(newDiv);
@@ -60,20 +59,24 @@
             const target = document.getElementById(settings.targetId);
             if(settings.autoClear) target.innerHTML = '';
 
-            global.print = (html) => {
+            const print = (html) => {
                 const div = document.createElement('div');
                 div.innerHTML = html;
                 target.appendChild(div);
             };
 
+            const helpers = { print, sleep, $, $$ };
+
             if (config.run && typeof config.run === 'function') {
                 try {
-                    await config.run();
+                    await config.run(helpers);
                 } catch (e) {
                     console.error("Skip.js Error:", e);
-                    global.print(`<div style="color:red; font-weight:bold;">Error: ${e.message}</div>`);
+                    print(`<div style="color:red; font-weight:bold;">Error: ${e.message}</div>`);
                 }
             }
         }
     };
+    
+    global.Skip = Skip;
 })(window);
