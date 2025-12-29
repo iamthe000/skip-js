@@ -1,80 +1,81 @@
-<!-- skip.js will manage title, meta charset, viewport, etc. -->
 <script src="skip.js"></script>
-<div id="app">
-  <p>This content will be cleared by Skip.js with autoClear: true.</p>
-</div>
+    
+<div id="app"><p>This content will be cleared by Skip.js with autoClear: true.</p></div>
+
 <script>
-Skip.start({
-    targetId: 'app',
-    lang: 'en',
-    title: 'Skip.js - Full Feature Demo',
-    charset: 'UTF-8',viewport: 'width=device-width, initial-scale=1.0',
-    themeColor: '#1a1a1a',
-    autoClear: true,
-              
-    run: async ({ print, sleep, $, $$ }) => {
-        print("<h1>🚀 Skip.js Full Feature Demo");
-        print("<p>All configurations and helpers are used in this demo.");
-        print("これはテストです")
-                  
-        // --- Configuration Demo ---
-        print("<h2>Configuration Options");
+    Skip.start({
+        targetId: 'app',
+        lang: 'en',
+        title: 'Skip.js - Full Feature Demo',
+        charset: 'UTF-8',
+        viewport: 'width=device-width, initial-scale=1.0',
+        themeColor: '#1a1a1a',
+        autoClear: true,
+        
+        run: async ({ print, sleep, $, $$ }) => {
+            print("<h1>🚀 Skip.js Full Feature Demo</h1>");
+            print("<p>All configurations and helpers are used in this demo.</p>");
+            
+            // --- Configuration Demo ---
+            print("<h2>Configuration Options</h2>");
             print(`
                 <ul>
-                    <li><b>lang: '${document.documentElement.lang}' (check <html> tag)
-                    <li><b>title: '${document.title}' (check browser tab)
-                    <li><b>targetId: 'app' (this container)
-                    <li><b>autoClear: true (the initial paragraph was cleared)
-                    <li>Meta tags for charset, viewport, and theme-color have been set in the <head>.
-                `);
-                  
+                    <li><b>lang:</b> '${document.documentElement.lang}' (check &lt;html&gt; tag)</li>
+                    <li><b>title:</b> '${document.title}' (check browser tab)</li>
+                    <li><b>targetId:</b> 'app' (this container)</li>
+                    <li><b>autoClear:</b> true (the initial paragraph was cleared)</li>
+                    <li>Meta tags for charset, viewport, and theme-color have been set in the &lt;head&gt;.</li>
+                </ul>
+            `);
+            
             // --- Helpers Demo ---
-            print("<h2>Helpers Demo");
-                  
+            print("<h2>Helpers Demo</h2>");
+            
             // Demo for $
-            print("<h3>$() selector");
+            print("<h3>$() selector</h3>");
             const mainContainer = $('#app');
             mainContainer.style.fontFamily = 'sans-serif';
             mainContainer.style.backgroundColor = '#f0f0f0';
             mainContainer.style.border = '2px solid #ccc';
             mainContainer.style.padding = '20px';
             mainContainer.style.borderRadius = '8px';
-            print("<p>The main container's style was changed using the $() selector.");
-      
+            print("<p>The main container's style was changed using the $() selector.</p>");
+            
             await sleep(1500);
 
             // Demo for print and sleep
-            print("<h3>print() and sleep()");
-            print("<p>Starting a 2-second countdown...");
+            print("<h3>print() and sleep()</h3>");
+            print("<p>Starting a 2-second countdown...</p>");
             await sleep(1000);
-            print("<p>1 second passed...");
+            print("<p>1 second passed...</p>");
             await sleep(1000);
-            print("<p>2 seconds passed. Countdown finished!");
-                  
+            print("<p>2 seconds passed. Countdown finished!</p>");
+            
             await sleep(1500);
-  
+
             // Demo for $$
-            print("<h3>$$() selector");
+            print("<h3>$$() selector</h3>");
             print(`
                 <ul>
-                <li class="highlight">Item 1 to be highlighted.
-                <li>Item 2 will not be changed.
-                <li class="highlight">Item 3 to be highlighted.
-                <li class="highlight">Item 4 to be highlighted.
+                    <li class="highlight">Item 1 to be highlighted.</li>
+                    <li>Item 2 will not be changed.</li>
+                    <li class="highlight">Item 3 to be highlighted.</li>
+                    <li class="highlight">Item 4 to be highlighted.</li>
+                </ul>
             `);
-                  
+            
             const itemsToHighlight = $$('.highlight');
-            print(`<p>Found ${itemsToHighlight.length} elements with class 'highlight'.`);
-                  
-            print("<p>Changing their background and font weight...");
+            print(`<p>Found ${itemsToHighlight.length} elements with class 'highlight'.</p>`);
+            
+            print("<p>Changing their background and font weight...</p>");
             await sleep(1000);
-  
+
             itemsToHighlight.forEach(item => {
                 item.style.backgroundColor = '#fff8b3';
                 item.style.fontWeight = 'bold';
             });
-  
-            print("<strong>All features demonstrated successfully!");
-    }
-});
+
+            print("<strong>All features demonstrated successfully!</strong>");
+        }
+    });
 </script>
