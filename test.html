@@ -1,11 +1,12 @@
-<meta charset="UTF-8"><script src="https://cdn.jsdelivr.net/gh/iamthe000/skip-js@v1.0.0/skip.js"></script>
+<meta charset="UTF-8">
+<script src="skip.js"></script>
 <div id="special_start"><h1>確認</h1></div>
 
 <script>
     Skip.start({
         title: "テスト-test",
         charset: 'UTF-8',
-        run: async () => {
+        run: async ({ print, sleep, $ }) => {
            
             print("<h1>開始します...</h1>");
             
