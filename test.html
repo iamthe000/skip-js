@@ -1,25 +1,80 @@
-<meta charset="UTF-8">
+<!-- skip.js will manage title, meta charset, viewport, etc. -->
 <script src="skip.js"></script>
-<div id="special_start"><h1>確認</h1></div>
-
+<div id="app">
+  <p>This content will be cleared by Skip.js with autoClear: true.</p>
+</div>
 <script>
-    Skip.start({
-        title: "テスト-test",
-        charset: 'UTF-8',
-        run: async ({ print, sleep, $ }) => {
-           
-            print("<h1>開始します...</h1>");
-            
-            await sleep(1000);
-            print("1秒経過。");
-            
-            await sleep(1000);
-            print("2秒経過。データを取得中...");
+Skip.start({
+    targetId: 'app',
+    lang: 'en',
+    title: 'Skip.js - Full Feature Demo',
+    charset: 'UTF-8',viewport: 'width=device-width, initial-scale=1.0',
+    themeColor: '#1a1a1a',
+    autoClear: true,
+              
+    run: async ({ print, sleep, $, $$ }) => {
+        print("<h1>🚀 Skip.js Full Feature Demo");
+        print("<p>All configurations and helpers are used in this demo.");
+        print("これはテストです")
+                  
+        // --- Configuration Demo ---
+        print("<h2>Configuration Options");
+            print(`
+                <ul>
+                    <li><b>lang: '${document.documentElement.lang}' (check <html> tag)
+                    <li><b>title: '${document.title}' (check browser tab)
+                    <li><b>targetId: 'app' (this container)
+                    <li><b>autoClear: true (the initial paragraph was cleared)
+                    <li>Meta tags for charset, viewport, and theme-color have been set in the <head>.
+                `);
+                  
+            // --- Helpers Demo ---
+            print("<h2>Helpers Demo");
+                  
+            // Demo for $
+            print("<h3>$() selector");
+            const mainContainer = $('#app');
+            mainContainer.style.fontFamily = 'sans-serif';
+            mainContainer.style.backgroundColor = '#f0f0f0';
+            mainContainer.style.border = '2px solid #ccc';
+            mainContainer.style.padding = '20px';
+            mainContainer.style.borderRadius = '8px';
+            print("<p>The main container's style was changed using the $() selector.");
+      
+            await sleep(1500);
 
-            $("#special_start").style.border = "2px solid #333";
-            $("#special_start").style.padding = "20px";
-            
-            print("<strong>完了しました！</strong>");
-        }
-    });
+            // Demo for print and sleep
+            print("<h3>print() and sleep()");
+            print("<p>Starting a 2-second countdown...");
+            await sleep(1000);
+            print("<p>1 second passed...");
+            await sleep(1000);
+            print("<p>2 seconds passed. Countdown finished!");
+                  
+            await sleep(1500);
+  
+            // Demo for $$
+            print("<h3>$$() selector");
+            print(`
+                <ul>
+                <li class="highlight">Item 1 to be highlighted.
+                <li>Item 2 will not be changed.
+                <li class="highlight">Item 3 to be highlighted.
+                <li class="highlight">Item 4 to be highlighted.
+            `);
+                  
+            const itemsToHighlight = $$('.highlight');
+            print(`<p>Found ${itemsToHighlight.length} elements with class 'highlight'.`);
+                  
+            print("<p>Changing their background and font weight...");
+            await sleep(1000);
+  
+            itemsToHighlight.forEach(item => {
+                item.style.backgroundColor = '#fff8b3';
+                item.style.fontWeight = 'bold';
+            });
+  
+            print("<strong>All features demonstrated successfully!");
+    }
+});
 </script>
